@@ -20,13 +20,10 @@
 
             <form action="{{ route('cart.add', $product->id) }}" method="POST">
                 @csrf
-                <div class="d-grid gap-3">
+                <div class="d-grid mb-3">
                     <button type="submit" class="btn btn-dark btn-lg btn-modern">
                         <i class="bi bi-cart-plus me-2"></i> Tambahkan ke Tas
                     </button>
-                    <a href="https://wa.me/6282165596756" class="btn btn-outline-success btn-lg btn-modern">
-                        <i class="bi bi-whatsapp me-2"></i> Beli Sekarang
-                    </a>
                 </div>
             </form>
         </div>
