@@ -3,6 +3,11 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 
+Route::get('/install', function () {
+    Artisan::call('migrate:fresh --seed');
+    return "Database Berhasil Diisi";
+});
+
 Route::get('/', [ProductController::class, 'index'])->name('home');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 
