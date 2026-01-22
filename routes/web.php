@@ -8,24 +8,30 @@ use App\Models\Product;
 
 Route::get('/init-toko', function () {
     try {
-        Artisan::call('migrate:fresh');
+        Artisan::call('migrate:fresh', ['--force' => true]);
         $migrateLog = Artisan::output();
 
-        Artisan::call('db:seed');
+        Artisan::call('db:seed', ['--force' => true]);
         $seedLog = Artisan::output();
 
         $count = Product::count();
 
         return "
-            <h3>Status Migrasi:</h3> <pre>$migrateLog</pre>
-            <h3>Status Seeder:</h3> <pre>$seedLog</pre>
-            <h3>Jumlah Produk di DB:</h3> <b>$count</b> <br><br>
-            <a href='/'>Kembali ke Beranda</a>
+            <div style='font-family: sans-serif; padding: 20px;'>
+                <h3 style='color: green;'>Proses Selesai!/h3>
+                <hr>
+                <b>Status Migrasi:</b> <pre style='background: #eee; padding: 10px;'>$migrateLog</pre>
+                <b>Status Seeder:</b> <pre style='background: #eee; padding: 10px;'>$seedLog</pre>
+                <b>Jumlah Produk yang Berhasil Masuk:</b> <span style='font-size: 20px; color: blue;'>$count</span>
+                <br><br>
+                <a href='/'>Lihat Website</a>
+            </div>
         ";
     } catch (\Exception $e) {
-        return "Terjadi Error: " . $e->getMessage();
+        return "Gagal Total: " . $e->getMessage();
     }
 });
+
 Route::get('/', [ProductController::class, 'index'])->name('home');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 
