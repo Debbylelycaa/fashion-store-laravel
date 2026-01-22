@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/install', function () {
     Artisan::call('migrate:fresh --seed');
